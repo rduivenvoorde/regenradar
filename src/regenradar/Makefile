@@ -38,13 +38,13 @@ LOCALES =
 # translation
 SOURCES = \
 	__init__.py \
-	regenradar.py regenradar_dialog.py
+	regenradar.py regenradar_dialog.py regenradar_control.py
 
 PLUGINNAME = RegenRadar
 
 PY_FILES = \
 	__init__.py \
-	regenradar.py regenradar_dialog.py
+	regenradar.py regenradar_dialog.py regenradar_control.py
 
 UI_FILES = regenradar_dialog_base.ui
 
@@ -196,6 +196,7 @@ doc:
 	@echo "Building documentation using sphinx."
 	@echo "------------------------------------"
 	cd help; make html
+	#rm -rf help/build
 
 pylint:
 	@echo

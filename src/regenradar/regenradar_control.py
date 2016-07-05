@@ -1,7 +1,8 @@
 
-from PyQt4.QtCore import QObject, QTimer
+from PyQt4.QtCore import QObject, QTimer, QDateTime
 
 from qgis.core import QgsVectorLayer, QgsMapLayerRegistry
+from qgis.gui import QgsMessageBar
 from qgis.utils import plugins
 
 import time
@@ -29,16 +30,20 @@ class RegenRadarControl(QObject):
         # 2016-06-13T18:00:00Z
         # 2016-06-15T18:00:00Z
 
+        if not 'timemanager' in plugins:
+            self.iface.messageBar().pushWarning ("Warning!!", "No TimeManger plugin, we REALLY need that. Please install via Plugin Manager first...")
+            return
+
         # development: remove the knmi layer from mapcanvas
         for l in QgsMapLayerRegistry.instance().mapLayersByName("knmi"):
             QgsMapLayerRegistry.instance().removeMapLayer(l)
 
+        tm = plugins['timemanager']
+
         # TODO try catch this
         from timemanager.layer_settings import LayerSettings
         from timemanager.raster.wmstlayer import WMSTRasterLayer
-        from timemanager.tmlogging import info
-
-        tm = plugins['timemanager']
+        #from timemanager.tmlogging import info
 
         #TODO click on button if not enabled
         if not tm.getController().getTimeLayerManager().isEnabled():
@@ -62,12 +67,29 @@ class RegenRadarControl(QObject):
         layer = self.iface.addRasterLayer(uri, "knmi", "wms")
 
         settings = LayerSettings()
-        settings.startTimeAttribute = unicode("2016-06-13T18:00:00Z")
+
         # endTimeAttribute !!! NOT toTimeAttribute
-        settings.endTimeAttribute = unicode("2016-06-15T18:00:00Z")
+        #settings.startTimeAttribute = unicode("2016-06-13T18:00:00Z")
+        #settings.endTimeAttribute = unicode("2016-06-15T18:00:00Z")
+        DEFAULT_DATE_FORMAT = 'yyyy-MM-ddTHH:mm:ssZ'
+        end = QDateTime.currentDateTime().toUTC() # now in UTC
+        # prefer 05:00
+        time = end.time()
+        minute = time.minute()
+        time.setHMS(time.hour(), minute-minute%5, 0, 0)
+        end.setTime(time)
+        settings.endTimeAttribute = end.toString(DEFAULT_DATE_FORMAT)
+        start = end.addSecs(-2*60*60).toString(DEFAULT_DATE_FORMAT)
+        settings.startTimeAttribute = start
+        # NOK
+        # http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?TIME=2016-07-05T13:45:00Z/2016-07-05T13:50:00Z&&SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX=-145108.7003207547241,299063.8299999999581,436757.3003207547008,626788.5699999999488&CRS=EPSG:28992&WIDTH=941&HEIGHT=530&LAYERS=RADNL_OPER_R___25PCPRR_L3_COLOR&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE
+
+        # OK
+        # http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?TIME=2016-06-13T18:05:00Z/2016-06-13T18:10:00Z&&SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX=-145108.7003207547241,299063.8299999999581,436757.3003207547008,626788.5699999999488&CRS=EPSG:28992&WIDTH=941&HEIGHT=530&LAYERS=RADNL_OPER_R___25PCPRR_L3_COLOR&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE
+        #settings.startTimeAttribute = unicode("2016-06-13T18:00:00Z")
+        #settings.endTimeAttribute = unicode("2016-06-15T18:00:00Z")
 
         settings.layer = layer
-        # settings.layer = iface.mapCanvas().currentLayer()
 
         timelayer = WMSTRasterLayer(settings, self.iface)
 
