@@ -78,13 +78,14 @@ class RegenRadarControl(QObject):
         #settings.endTimeAttribute = unicode("2016-06-15T18:00:00Z")
         DEFAULT_DATE_FORMAT = 'yyyy-MM-ddTHH:mm:ssZ'
         end = QDateTime.currentDateTime().toUTC() # now in UTC
-        # prefer 05:00
         time = end.time()
         minute = time.minute()
+        # prefer times which are %5=0 (that is 0, 5, 15 ... minutes)
         time.setHMS(time.hour(), minute-minute%5, 0, 0)
         end.setTime(time)
         tlayer_settings.endTimeAttribute = end.toString(DEFAULT_DATE_FORMAT)
-        start = end.addSecs(-2*60*60).toString(DEFAULT_DATE_FORMAT)
+        hours = settings.value("hours")
+        start = end.addSecs(-hours*60*60).toString(DEFAULT_DATE_FORMAT)
         tlayer_settings.startTimeAttribute = start
         # NOK
         # http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi?TIME=2016-07-05T13:45:00Z/2016-07-05T13:50:00Z&&SERVICE=WMS&VERSION=1.3.0&REQUEST=GetMap&BBOX=-145108.7003207547241,299063.8299999999581,436757.3003207547008,626788.5699999999488&CRS=EPSG:28992&WIDTH=941&HEIGHT=530&LAYERS=RADNL_OPER_R___25PCPRR_L3_COLOR&STYLES=&FORMAT=image/png&DPI=96&MAP_RESOLUTION=96&FORMAT_OPTIONS=dpi:96&TRANSPARENT=TRUE
@@ -111,7 +112,7 @@ class RegenRadarControl(QObject):
 
         animationFrameLength = 2000
         frame_type = 'minutes'
-        frame_size = 5
+        frame_size = 5  # TODO: make this a parameter?
         tm.getController().setPropagateGuiChanges(False)
         tm.getController().setAnimationOptions(animationFrameLength, False, False)
 

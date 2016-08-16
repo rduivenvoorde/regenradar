@@ -20,8 +20,9 @@
  *                                                                         *
  ***************************************************************************/
 """
-from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication
-from PyQt4.QtGui import QAction, QIcon
+from PyQt4.QtCore import QSettings, QTranslator, qVersion, QCoreApplication, QUrl
+from PyQt4.QtGui import QAction, QIcon, QDesktopServices
+
 # Initialize Qt resources from file resources.py
 import resources
 # Import the code for the dialog
@@ -53,7 +54,7 @@ class RegenRadar:
         locale_path = os.path.join(
             self.plugin_dir,
             'i18n',
-            'RegenRadar_{}.qm'.format(locale))
+            '{}.qm'.format(locale))
 
         if os.path.exists(locale_path):
             self.translator = QTranslator()
@@ -185,6 +186,14 @@ class RegenRadar:
             add_to_toolbar=False,
             parent=self.iface.mainWindow())
 
+        # settings
+        icon_path = ':/plugins/RegenRadar/icon.png'
+        self.add_action(
+            icon_path,
+            text=self.tr(u'Documentation'),
+            callback=self.show_help,
+            add_to_toolbar=False,
+            parent=self.iface.mainWindow())
 
     def unload(self):
         """Removes the plugin menu item and icon from QGIS GUI."""
@@ -212,4 +221,8 @@ class RegenRadar:
 
     def show_settings(self):
         self.settings_dlg.show()
+
+    def show_help(self):
+        docs = os.path.join(os.path.dirname(__file__), "help/html", "index.html")
+        QDesktopServices.openUrl(QUrl("file:" + docs))
 

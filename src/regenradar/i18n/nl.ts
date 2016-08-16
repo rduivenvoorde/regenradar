@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<!DOCTYPE TS>
-<TS version="2.1" language="nl" sourcelanguage="en">
+<!DOCTYPE TS><TS version="2.0" language="nl" sourcelanguage="en">
 <context>
     <name>@default</name>
     <message>
@@ -20,11 +19,6 @@
         <location filename="regenradar_settings_dialog_base.ui" line="24"/>
         <source>Settings</source>
         <translation>Instellingen</translation>
-    </message>
-    <message>
-        <location filename="regenradar_settings_dialog_base.ui" line="30"/>
-        <source>WMT-T Service information</source>
-        <translation>WMS-T Service informatie</translation>
     </message>
     <message>
         <location filename="regenradar_settings_dialog_base.ui" line="36"/>
@@ -57,12 +51,12 @@
         <translation></translation>
     </message>
     <message>
-        <location filename="regenradar_settings_dialog_base.ui" line="100"/>
+        <location filename="regenradar_settings_dialog_base.ui" line="119"/>
         <source>Information</source>
         <translation>Informatie</translation>
     </message>
     <message>
-        <location filename="regenradar_settings_dialog_base.ui" line="106"/>
+        <location filename="regenradar_settings_dialog_base.ui" line="125"/>
         <source>&lt;!DOCTYPE HTML PUBLIC &quot;-//W3C//DTD HTML 4.0//EN&quot; &quot;http://www.w3.org/TR/REC-html40/strict.dtd&quot;&gt;
 &lt;html&gt;&lt;head&gt;&lt;meta name=&quot;qrichtext&quot; content=&quot;1&quot; /&gt;&lt;style type=&quot;text/css&quot;&gt;
 p, li { white-space: pre-wrap; }
@@ -102,23 +96,43 @@ p, li { white-space: pre-wrap; }
 &lt;li style=&quot; margin-top:0px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;CRS: EPSG:28992&lt;/li&gt;&lt;/ul&gt;
 &lt;p style=&quot; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;&quot;&gt;&lt;br /&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
+    <message>
+        <location filename="regenradar_settings_dialog_base.ui" line="30"/>
+        <source>WMS-T Service information</source>
+        <translation>WMS-T Service informatie</translation>
+    </message>
+    <message>
+        <location filename="regenradar_settings_dialog_base.ui" line="99"/>
+        <source>Time Period</source>
+        <translation>Tijdsperiode</translation>
+    </message>
+    <message>
+        <location filename="regenradar_settings_dialog_base.ui" line="105"/>
+        <source>Hours (from now)</source>
+        <translation>Uur (vanaf nu)</translation>
+    </message>
 </context>
 <context>
     <name>RegenRadar</name>
     <message>
-        <location filename="regenradar.py" line="192"/>
+        <location filename="regenradar.py" line="201"/>
         <source>&amp;Regenradar</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="regenradar.py" line="173"/>
+        <location filename="regenradar.py" line="174"/>
         <source>Show RainRadar</source>
         <translation>Toon RegenRadar</translation>
     </message>
     <message>
-        <location filename="regenradar.py" line="181"/>
+        <location filename="regenradar.py" line="182"/>
         <source>Show RainRadar Settings</source>
-        <translation>Toon Regenradar Instellingen</translation>
+        <translation>Regenradar Instellingen</translation>
+    </message>
+    <message>
+        <location filename="regenradar.py" line="191"/>
+        <source>Documentation</source>
+        <translation>Documentatie</translation>
     </message>
 </context>
 <context>

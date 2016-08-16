@@ -19,6 +19,7 @@ class RegenRadarSettings(SettingManager):
         # DEZE WERKT WEL !!!!
         url = "http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi"
 
+        # SERVICE PARAMETERS
         self.add_setting(String("name", Scope.Global, "KNMI regen"))
         self.add_setting(String("url", Scope.Global,
                                 "http://geoservices.knmi.nl/cgi-bin/RADNL_OPER_R___25PCPRR_L3.cgi"))
@@ -26,3 +27,6 @@ class RegenRadarSettings(SettingManager):
         self.add_setting(String("styles", Scope.Global, ""))
         self.add_setting(String("imgformat", Scope.Global, "image/png"))
         self.add_setting(String("crs", Scope.Global, "EPSG:28992"))
+
+        # TIME PARAMETERS
+        self.add_setting(Integer("hours", Scope.Global, 2))
