@@ -11,7 +11,7 @@
      <download_url>http://repo.svc.cal-net.nl/repo/rivm/qgis/SectorPlot.zip</download_url>
    </pyqgis_plugin>
 
-   <pyqgis_plugin name="RegenRadar" version="0.1">
+   <pyqgis_plugin name="RegenRadar" version="0.2">
      <description>This plugin tests if you have TimeManager plugin installed and active. Then creates a WMS-T layer of current precipitation in The Netherlands, loads this layer into QGIS, and registres it as a TimeLayer in the TimeManager. Then it tries to 'Play' WMS-T from last hour.</description>
      <homepage>https://github.com/rduivenvoorde/regenradar</homepage>
      <qgis_minimum_version>2.12</qgis_minimum_version>
